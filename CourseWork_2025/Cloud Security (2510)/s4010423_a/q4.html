@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="biginteger.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-sha1@0.6.0/src/sha1.min.js"></script>
+</head>
+<body>
+
+<button type="button" onclick="generate_number()">generate random number</button>
+<p>Random number a:</p>
+<p id="a"></p>
+
+<p>Random number b:</p>
+<p id="b"></p>
+
+<p>Sha1 Encryption</p>
+<p id="x"></p>
+
+<p>y=g*(mod p) output</p>
+<p id="y"></p>
+
+<p>g^A (VPC public):</p>
+<p id="gA"></p>
+
+<p>g^B (Data Centre public):</p>
+<p id="gB"></p>
+
+<p>Shared Secret A:</p>
+<p id="secretA"></p>
+
+<p>Shared Secret B:</p>
+<p id="secretB"></p>
+
+
+
+<script type="text/javascript">
+    const p = bigInt("178011905478542266528237562450159990145232156369120674273274450314442865788737020770612695252123463079567156784778466449970650770920727857050009668388144034129745221171818506047231150039301079959358067395348717066319802262019714966524135060945913707594956514672855690606794135837542707371727429551343320695239")
+    const g = bigInt("174068207532402095185811980123523436538604490794561350978495831040599953488455823147851597408940950725307797094915759492368300574252438761037084473467180148876118103083043754985190983472601550494691329488083395492313850000361646482644608492304078721818959999056496097769368017749273708962006689187956744210730")
+
+    // Implement 160-bit random number generator
+    function generate_number(){
+        const a = random_bigInt();
+        const b = random_bigInt();
+
+        document.getElementById('a').innerHTML = a.toString();
+        document.getElementById('b').innerHTML = b.toString();
+
+        // Implementing SHA1 of student id and output y=gx(mod p)
+        const xHex = sha1("s4010423");
+        document.getElementById('x').innerHTML = xHex;
+        const x = bigInt(xHex, 16);
+        const y = g.modPow(x, p);
+        document.getElementById('y').innerText = y.toString();
+
+        // Implementing VPC, Secrets output
+        const Ahex = sha1(a.toString() + "Vu");  
+        const Bhex = sha1(b.toString() + "Nguyen");    
+        const A = bigInt(Ahex, 16);
+        const B = bigInt(Bhex, 16);
+
+        const gA = g.modPow(A, p);
+        const gB = g.modPow(B, p);
+
+        const secretA = gB.modPow(A, p); 
+        const secretB = gA.modPow(B, p); 
+
+        document.getElementById('gA').innerText = gA.toString();
+        document.getElementById('gB').innerText = gB.toString();
+        document.getElementById('secretA').innerText = secretA.toString();
+        document.getElementById('secretB').innerText = secretB.toString();
+
+        
+	}
+
+    
+
+    function random_bigInt(){	
+        var random_number = "";
+    	for (i = 0; i < 160; i++) {
+            random_number += Math.floor(Math.random() * 2);
+        }
+        return bigInt(random_number,2);
+    }
+    
+</script>
+
+</body>
+</html>

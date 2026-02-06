@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/aes-js@3.1.0/index.js"></script>
+</head>
+<body>
+<p><strong>Keys and timestamp:</strong></p>
+<pre id="info"></pre>
+
+<p><strong>Ticket:</strong></p>
+<pre id="ticket"></pre>
+
+<p><strong>Authenticator:</strong></p>
+<pre id="auth"></pre>
+
+<p><strong>Authenticator Decrypted:</strong></p>
+<pre id="authDec"></pre>
+
+<button onclick="run()">Compute</button>
+
+<script>
+function run() {
+  const KC = "7c87b7e19d52cd8663223cad6b9233ab";
+  const KS = "39ffe3021bcad0da66bc4efc46ef0360";
+  const nC = "f04981feda3674db9223bb95eda3da2f";
+  const ts = new Date().toLocaleString();
+  const sessionKey = "abcd1234abcd1234";
+  const iv = aesjs.utils.utf8.toBytes("1234567890abcdef");
+
+  const encrypt = (txt, key) => {
+    const k = aesjs.utils.utf8.toBytes(key);
+    const b = aesjs.utils.utf8.toBytes(txt);
+    const p = aesjs.padding.pkcs7.pad(b);
+    return aesjs.utils.hex.fromBytes(new aesjs.ModeOfOperation.cbc(k, iv).encrypt(p));
+  };
+
+  const decrypt = (hex, key) => {
+    const k = aesjs.utils.utf8.toBytes(key);
+    const b = aesjs.utils.hex.toBytes(hex);
+    const d = new aesjs.ModeOfOperation.cbc(k, iv).decrypt(b);
+    return aesjs.utils.utf8.fromBytes(aesjs.padding.pkcs7.strip(d));
+  };
+
+  document.getElementById("info").textContent = `KC = ${KC}\nKS = ${KS}\nnC = ${nC}\ntimestamp = ${ts}`;
+  const ticket = encrypt(sessionKey, KS);
+  const auth = encrypt(nC + ts, KC);
+  document.getElementById("ticket").textContent = ticket;
+  document.getElementById("auth").textContent = auth;
+  document.getElementById("authDec").textContent = decrypt(auth, KC);
+}
+</script>
+</body>
+</html>

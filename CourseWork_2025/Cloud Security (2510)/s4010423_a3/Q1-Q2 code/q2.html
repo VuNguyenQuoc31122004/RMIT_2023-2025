@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="biginteger.js"></script>
+</head>
+<body>
+
+<p>Secret (s):</p>
+<input id="s" name="s" value="12345678910"><br/>
+<p>a1:</p>
+<input id="a1" name="a1" value="4010423"><br/>
+<p>a2:</p>
+<input id="a2" name="a2" value = "9845612374"><br/>
+<p>Prime (p):</p>
+<input id="p" name="p" value="134078079299425970995740249982058461274793658205923933777235614437217640300737"><br/>
+<br/>
+
+Polynomial equation as below:<br/>
+<button type="button" onclick="get_polynomial_equation()">get polynomial equation</button><br/>
+f(x) = s + a1x + a2x^2 mod p = <div id="polynomial_equation" name="polynomial_equation"></div><br/>
+
+<button type="button" onclick="compute_4_points()">compute 4 points</button><br/>
+when x = 1, 2, 3, 4<br/>
+<div id="point1" name="point1"></div>
+<div id="point2" name="point2"></div>
+<div id="point3" name="point3"></div>
+<div id="point4" name="point4"></div>
+<br/><br/>
+
+Select any three points above to recover the secret (s):<br/>
+select x1: <input id="x1" name="x1"><br/>
+select y1: <input id="y1" name="y1"><br/>
+<br/>
+select x2: <input id="x2" name="x2"><br/>
+select y2: <input id="y2" name="y2"><br/>
+<br/>
+select x3: <input id="x3" name="x3"><br/>
+select y3: <input id="y3" name="y3"><br/>
+<br/>
+<button type="button" onclick="recover_secret()">recover secret s</button><br/>
+<div id="recovered_secret" name="recovered_secret"></div>
+
+<script>
+function mod(a, p) {
+  var result = a.mod(p);
+  return result.isNegative() ? result.add(p) : result;
+}
+
+function add_mod(a, b, p) {
+  return mod(a.add(b), p);
+}
+
+function sub_mod(a, b, p) {
+  return mod(a.subtract(b), p);
+}
+
+function mul_mod(a, b, p) {
+  return mod(a.multiply(b), p);
+}
+
+function inv_mod(a, p) {
+  return a.modInv(p);
+}
+
+function get_polynomial_equation() {
+  var s = document.getElementById("s").value;
+  var a1 = document.getElementById("a1").value;
+  var a2 = document.getElementById("a2").value;
+  var p = document.getElementById("p").value;
+  document.getElementById("polynomial_equation").innerHTML = s + " + " + a1 + "x + " + a2 + "x^2 mod " + p;
+}
+
+function compute_4_points() {
+  var s = bigInt(document.getElementById("s").value);
+  var a1 = bigInt(document.getElementById("a1").value);
+  var a2 = bigInt(document.getElementById("a2").value);
+  var p = bigInt(document.getElementById("p").value);
+
+  var x1 = bigInt(1);
+  var y1 = add_mod(s, add_mod(mul_mod(a1, x1, p), mul_mod(a2, x1.pow(2), p), p), p);
+  var x2 = bigInt(2);
+  var y2 = add_mod(s, add_mod(mul_mod(a1, x2, p), mul_mod(a2, x2.pow(2), p), p), p);
+  var x3 = bigInt(3);
+  var y3 = add_mod(s, add_mod(mul_mod(a1, x3, p), mul_mod(a2, x3.pow(2), p), p), p);
+  var x4 = bigInt(4);
+  var y4 = add_mod(s, add_mod(mul_mod(a1, x4, p), mul_mod(a2, x4.pow(2), p), p), p);
+
+  document.getElementById("point1").innerHTML = "(" + x1 + ", " + y1 + ")";
+  document.getElementById("point2").innerHTML = "(" + x2 + ", " + y2 + ")";
+  document.getElementById("point3").innerHTML = "(" + x3 + ", " + y3 + ")";
+  document.getElementById("point4").innerHTML = "(" + x4 + ", " + y4 + ")";
+}
+
+function recover_secret() {
+  var p = bigInt(document.getElementById("p").value);
+
+  var x1 = bigInt(document.getElementById("x1").value);
+  var y1 = bigInt(document.getElementById("y1").value);
+  var x2 = bigInt(document.getElementById("x2").value);
+  var y2 = bigInt(document.getElementById("y2").value);
+  var x3 = bigInt(document.getElementById("x3").value);
+  var y3 = bigInt(document.getElementById("y3").value);
+
+  var l1 = mul_mod(mul_mod(x2.negate(), inv_mod(sub_mod(x1, x2, p), p), p), mul_mod(x3.negate(), inv_mod(sub_mod(x1, x3, p), p), p), p);
+  var l2 = mul_mod(mul_mod(x1.negate(), inv_mod(sub_mod(x2, x1, p), p), p), mul_mod(x3.negate(), inv_mod(sub_mod(x2, x3, p), p), p), p);
+  var l3 = mul_mod(mul_mod(x1.negate(), inv_mod(sub_mod(x3, x1, p), p), p), mul_mod(x2.negate(), inv_mod(sub_mod(x3, x2, p), p), p), p);
+
+  var part1 = mul_mod(y1, l1, p);
+  var part2 = mul_mod(y2, l2, p);
+  var part3 = mul_mod(y3, l3, p);
+
+  var s = add_mod(add_mod(part1, part2, p), part3, p);
+  document.getElementById("recovered_secret").innerHTML = s.toString();
+}
+</script>
+
+</body>
+</html>

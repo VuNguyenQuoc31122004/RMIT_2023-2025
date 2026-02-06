@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="biginteger.js"></script>
+</head>
+<body>
+  <p>Public Key (n):</p>
+  <p id="n"></p>
+
+  <p>Inputs:</p>
+  <p id="inputs"></p>
+
+  <p>Encrypted values:</p>
+  <p id="c1"></p>
+  <p id="c2"></p>
+  <p id="c3"></p>
+
+  <p>Homomorphic sum ciphertext (csum):</p>
+  <p id="csum"></p>
+
+  <script>
+    const p = bigInt("fb9ddfe3e18439490359761969b6015ceacfae408eee0ed029bc375550550f25effb28812fe9782ef6a8c4e8e43fba95d69782d628498ce5d042440a9b02869b", 16);
+    const q = bigInt("dceeff6d1c6bff190218fe003b88c52581af11cd07778132f297a9198e6a635bc0f51188ebc8d03329779c734c4dcc60300e1cd4b5a7895a796d580c4a18bb55", 16);
+
+    const n = p.multiply(q);
+    const nSquared = n.multiply(n);
+    const g = n.add(1);
+
+    const rValues = [
+      bigInt("ff6d3e6b05cc05ae35c1fcf96b9290d023424741b0e3488779a7f37069ead092a151fc4c106c2446ab5dd4b5f67ee72008e169bf4ab7833a8e1a182a87eb8eaf", 16),
+      bigInt("b160e82b6d0f61b645534379f5adb18f969b609ef81295bf22e78b40ecc8251aa1714f1e9c7aac98d8d124a2c122f82c211d01b0dcdd01957291992cb5307c6d", 16),
+      bigInt("c4922d9b4ae1bec47f459fdfab61ca79d712e725a9d3d56121c986dc39eb939600c6fc405c7584706c7a2f781ce8d457dfa52b8f6ce848e159993c25ff25c959", 16)
+    ];
+
+    function encrypt(m, n, g, r) {
+      return g.modPow(m, nSquared).multiply(r.modPow(n, nSquared)).mod(nSquared);
+    }
+
+    const input1 = bigInt("43ee", 16);
+    const input2 = bigInt("1c3b", 16);
+    const input3 = bigInt("873e", 16);
+
+    const c1 = encrypt(input1, n, g, rValues[0]);
+    const c2 = encrypt(input2, n, g, rValues[1]);
+    const c3 = encrypt(input3, n, g, rValues[2]);
+
+    const csum = c1.multiply(c2).mod(nSquared).multiply(c3).mod(nSquared);
+
+    document.getElementById("n").innerText = n.toString(16);
+    document.getElementById("inputs").innerText = `${input1.toString(16)}, ${input2.toString(16)}, ${input3.toString(16)}`;
+    document.getElementById("c1").innerText = "c1: " + c1.toString(16);
+    document.getElementById("c2").innerText = "c2: " + c2.toString(16);
+    document.getElementById("c3").innerText = "c3: " + c3.toString(16);
+    document.getElementById("csum").innerText = csum.toString(16);
+  </script>
+</body>
+</html>

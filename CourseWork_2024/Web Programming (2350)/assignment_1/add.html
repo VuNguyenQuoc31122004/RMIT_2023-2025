@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <link rel="stylesheet" href ="styles1.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@100&family=Permanent+Marker&family=Ysabeau+SC:wght@100;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" >
+    <script src="main.js"></script>
+    <body class="add">
+        <header>
+            <nav>
+                <a href="index.html"><img src="logo.jpeg" alt="logo" class="logo"></a>
+                <label><span class="material-symbols-outlined">
+                    search
+                    </span><input class="search" type="text" placeholder="Search.." ></label>
+                    <select id="pageSelector">
+                        <option>Select Option....</option>
+                        <option value="index.html">Home</option>
+                        <option value="facilities.html">Facilities</option>
+                        <option value="add.html">Add</option>
+                        <option value="gallery.html">Gallery</option>
+                    </select>
+                
+            </nav>
+       
+            <h1>Add A facility</h1>
+            <p>You can add a facility here</p>
+        </header>
+        <Main>
+            <form>
+                <label class="required-field">Facility Name:</label><br>
+                <input type="text" class="text" placeholder="Provide a name for a facility"><br>
+                <label class="required-field">Description:</label><br>
+                <input type="text" class="text" placeholder="Describe the facility briefly"><br>
+                <label class="required-field">Select an Image <button>Choose file</button> No file chosen</label> <br>
+                <label class="required-field">Image Caption:</label><br>
+                <input type="text" class="text" placeholder="Describe the image in one word"><br>
+                <label class="required-field">Capacity:</label><br>
+                <input type="number" class="text" placeholder="A max number of people"><br>
+                <label class="required-field">Price:</label><br>
+                <input type="number" class="text" placeholder="$0.00"><br>
+                <label class="required-field">Bed configuration:</label><br>
+                <select class="text">
+                    <option>1 Double</option>
+                    <option>1 Queen</option>
+                    <option>1 King</option>
+                    <option>2 Single</option>
+                </select>
+                <div class="button">
+                    <button class="button2 button1">
+                        <span class="material-symbols-outlined">
+                        check
+                        </span>
+                        Submit</button>
+                    <button class="button2"><span class="material-symbols-outlined">
+                        close
+                        </span>clear</button>
+                </div>
+            </form>
+        </Main>
+        <Footer>&copy; COPYRIGHT s4010423. ALL RIGHTS RESERVED | DESIGNED FOR INTERNATIONAL MELBOURNE HOTEL</Footer>
+    </body>
+</html>

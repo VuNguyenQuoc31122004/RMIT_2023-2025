@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <!-- Q3-->
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/aes-js@3.1.0/index.js"></script>
+</head>
+<body>
+    <p>Keys and timestamp:</p>
+    <p id="info"></p>
+
+    <p>Ticket:</p>
+    <p id="ticket"></p>
+
+    <p>Authenticator:</p>
+    <p id="auth"></p>
+
+    <p>Authenticator Decrypted:</p>
+    <p id="authDec"></p>
+
+  <script>
+
+      const KC = "4feb87a2b9f75bcdc41d6828fd2a30e9"; // MD5(C, your student ID)
+      const KS = "669c45b1684463c09e3acc8ff30fc63e"; // MD5(S, your student ID)
+      const nC = "39ffe3021bcad0da66bc4efc46ef0360"; // MD5(C)
+      const ts = new Date().toLocaleString();
+
+      const iv = aesjs.utils.utf8.toBytes("1234567890abcdef"); //IV wasn't stated in the assignment. A placeholder was placed instead
+
+      // 1 AES-128 CBC Encryption and decryption
+      const encrypt = (txt, keyHex) => {
+          const keyBytes = aesjs.utils.hex.toBytes(keyHex);
+          const textBytes = aesjs.utils.utf8.toBytes(txt);
+          const padded = aesjs.padding.pkcs7.pad(textBytes);
+          const aesCbc = new aesjs.ModeOfOperation.cbc(keyBytes, iv);
+          const encrypted = aesCbc.encrypt(padded);
+          return aesjs.utils.hex.fromBytes(encrypted);
+      };
+      
+      const decrypt = (hex, keyHex) => {
+          const keyBytes = aesjs.utils.hex.toBytes(keyHex);
+          const encryptedBytes = aesjs.utils.hex.toBytes(hex);
+          const aesCbc = new aesjs.ModeOfOperation.cbc(keyBytes, iv);
+          const decryptedBytes = aesCbc.decrypt(encryptedBytes);
+          const unpadded = aesjs.padding.pkcs7.strip(decryptedBytes);
+          return aesjs.utils.utf8.fromBytes(unpadded);
+      };
+
+      // 2,1 Phase 1: Getting ticket
+      const keyBytes = new Uint8Array(16);
+      crypto.getRandomValues(keyBytes);
+      const sessionKey = aesjs.utils.hex.fromBytes(keyBytes);
+      const ticket = encrypt(sessionKey, KS);
+      
+      // 3,1 Phase 2: Communication: Return with timetamp and session key
+      const auth = encrypt(nC + ts, sessionKey);
+
+      document.getElementById("info").textContent =
+          `KC = ${KC}\n
+          KS = ${KS}\n
+          nC = ${nC}\n
+          timestamp = ${ts}`;
+
+      document.getElementById("ticket").textContent = ticket;
+      document.getElementById("auth").textContent = auth;
+      document.getElementById("authDec").textContent = decrypt(auth, sessionKey);
+  </script>
+</body>
+<!-- 
+The library was provided in week 6 tutorial solution
+Instruction to use CBC encryption library was provided in https://www.jsdelivr.com/package/npm/aes-js
+ -->
+</html>
