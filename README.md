@@ -1,6 +1,7 @@
 # RMIT_2023-2025
 ## CourseWork_2023/
-├── Database Concepts (2350)/ 
+├── Database Concepts (2350)
+
 ├── Introduction to Computer Systems and Platform Technologies (2310)/
 ├── Networking 1 (2310)/
 ├── Planning a Digital Communication Strategy/
