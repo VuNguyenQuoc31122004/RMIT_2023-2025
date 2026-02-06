@@ -19,7 +19,7 @@
 └── [Web Programming (2350)/](https://github.com/VuNguyenQuoc31122004/RMIT_2023-2025/tree/main/CourseWork_2024/Web%20Programming%20(2350))<br>
 
 ## CourseWork_2025/
-├── Cloud Foundations (2510)/ [Anchor Text](https://example.com)<br>
-├── Cloud Security (2510)/ [Anchor Text](https://example.com)<br>
-├── Introduction to Cyber Security (2502)/ [Anchor Text](https://example.com)<br>
-└── Practical Cybersecurity for Business (2550)/ [Anchor Text](https://example.com)<br>
+├── [Cloud Foundations (2510)/](https://github.com/VuNguyenQuoc31122004/RMIT_2023-2025/tree/main/CourseWork_2025/Cloud%20Foundations%20(2510))<br>
+├── [Cloud Security (2510)/](https://github.com/VuNguyenQuoc31122004/RMIT_2023-2025/tree/main/CourseWork_2025/Cloud%20Security%20(2510))<br>
+├── [Introduction to Cyber Security (2502)/](https://github.com/VuNguyenQuoc31122004/RMIT_2023-2025/tree/main/CourseWork_2025/Introduction%20to%20Cyber%20Security%20(2502))<br>
+└── [Practical Cybersecurity for Business (2550)/](https://github.com/VuNguyenQuoc31122004/RMIT_2023-2025/tree/main/CourseWork_2025/Practical%20Cybersecurity%20for%20Business%20(2550))<br>
