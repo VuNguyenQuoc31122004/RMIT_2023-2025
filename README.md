@@ -1,12 +1,12 @@
 # RMIT_2023-2025
 ## CourseWork_2023/
-├── [Database Concepts (2350)/ ](https://github.com/VuNguyenQuoc31122004/RMIT_2023-2025/tree/main/CourseWork_2023/Database%20Concepts%20(2350)) <br>
-├── Introduction to Computer Systems and Platform Technologies (2310)/ <br>
-├── Networking 1 (2310)/ <br>
-├── Planning a Digital Communication Strategy/ <br>
-├── Unix Essentials for System Administrators (2450)/ <br>
-├── User-Centred Design (AD) (2310)/ <br>
-└── Workplace Communication A (2310)/ <br>
+├── [Database Concepts (2350)/](https://github.com/VuNguyenQuoc31122004/RMIT_2023-2025/tree/main/CourseWork_2023/Database%20Concepts%20(2350)) <br>
+├── [Introduction to Computer Systems and Platform Technologies (2310)/](https://github.com/VuNguyenQuoc31122004/RMIT_2023-2025/tree/main/CourseWork_2023/Introduction%20to%20Computer%20Systems%20and%20Platform%20Technologies%20(2310)) <br>
+├── [Networking 1 (2310)/](https://github.com/VuNguyenQuoc31122004/RMIT_2023-2025/tree/main/CourseWork_2023/Networking%201%20(2310)) <br>
+├── [Planning a Digital Communication Strategy/](https://github.com/VuNguyenQuoc31122004/RMIT_2023-2025/tree/main/CourseWork_2023/Planning%20a%20Digital%20Communication%20Strategy) <br>
+├── Unix Essentials for System Administrators (2450)/ [Anchor Text](https://example.com) <br>
+├── User-Centred Design (AD) (2310)/ [Anchor Text](https://example.com) <br>
+└── Workplace Communication A (2310)/ [Anchor Text](https://example.com) <br>
 
 
 ## CourseWork_2024/
