@@ -1,4 +1,6 @@
 # RMIT_2023-2025
+The cumulative coursework between 2023 and 2025.
+
 ## CourseWork_2023/
 ├── [Database Concepts (2350)/](https://github.com/VuNguyenQuoc31122004/RMIT_2023-2025/tree/main/CourseWork_2023/Database%20Concepts%20(2350)) <br>
 ├── [Introduction to Computer Systems and Platform Technologies (2310)/](https://github.com/VuNguyenQuoc31122004/RMIT_2023-2025/tree/main/CourseWork_2023/Introduction%20to%20Computer%20Systems%20and%20Platform%20Technologies%20(2310)) <br>
